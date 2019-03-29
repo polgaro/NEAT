@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+  <PopulationSize>10</PopulationSize>
+  <SpecieCount>2</SpecieCount>
+  <Activation>
+    <Scheme>FixedIters</Scheme>
+    <Iters>2</Iters>
+  </Activation>
+  <ComplexityRegulationStrategy>Absolute</ComplexityRegulationStrategy>
+  <ComplexityThreshold>50</ComplexityThreshold>
+  <Description>
+    asdasdasdasdasd
+  </Description>
+
+</Config>

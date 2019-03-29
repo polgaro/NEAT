@@ -4,14 +4,14 @@ using static TitTacToeGame.Game;
 
 namespace NeatTest.ConsoleApp
 {
-    internal class Brain
+    internal class RandomBrain: IPlayer
     {
-        public Brain()
+        public RandomBrain()
         {
 
         }
 
-        internal void Move(Game game)
+        public void Move(Game game)
         {
             MoveDTO move;
             do

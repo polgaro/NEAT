@@ -1,30 +1,89 @@
-﻿using System;
+﻿using NeatTest.ConsoleApp.AI;
+using SharpNeat.EvolutionAlgorithms;
+using SharpNeat.Genomes.Neat;
+using System;
+using System.Collections.Generic;
+using System.Xml;
 using TitTacToeGame;
 
 namespace NeatTest.ConsoleApp
 {
     class Program
     {
+        const string FILE = "train.xml";
+
         static void Main(string[] args)
         {
-            Game Game = new Game();
-            Brain p1 = new Brain();
-            Brain p2 = new Brain();
+            GameExperiment experiment = new GameExperiment();
 
-            while(Game.GetGameState() == WinnerEnum.NobodyYet)
+            // Load config XML.
+            XmlDocument xmlConfig = new XmlDocument();
+            xmlConfig.Load("expconfig.xml");
+            experiment.Initialize("TicTacToe", xmlConfig.DocumentElement);
+
+
+            #region Play
+            NeatGenome genome = null;
+
+            // Try to load the genome from the XML document.
+            try
             {
-                if (Game.Turn == PlayerEnum.Player1)
-                    p1.Move(Game);
-                else
-                    p2.Move(Game);
+                using (XmlReader xr = XmlReader.Create(FILE))
+                    genome = NeatGenomeXmlIO.ReadCompleteGenomeList(xr, false, (NeatGenomeFactory)experiment.CreateGenomeFactory())[0];
+            }
+            catch (Exception e1)
+            {
+                return;
             }
 
-            Draw(Game.Board);
+            // Get a genome decoder that can convert genomes to phenomes.
+            var genomeDecoder = experiment.CreateGenomeDecoder();
 
-            Console.WriteLine(Game.GetGameState().ToString());
-            Console.ReadKey();
+            // Decode the genome into a phenome (neural network).
+            var phenome = genomeDecoder.Decode(genome);
+
+            IPlayer p1 = new NeatBrain(phenome);
+            IPlayer p2 = new RandomBrain();
+
+            while (true)
+            {
+
+                Game Game = new Game(p1, p2);
+                Game.PlayUntilFinished();
+
+                Draw(Game.Board);
+
+                Console.WriteLine(Game.GetGameState().ToString());
+                Console.ReadKey();
+                Console.WriteLine();
+            }
+            #endregion Play
+
+            #region Train
+            //NeatEvolutionAlgorithm<NeatGenome> _ea;
+
+            //// Create evolution algorithm and attach update event.
+            //_ea = experiment.CreateEvolutionAlgorithm();
+            //_ea.UpdateEvent += new EventHandler(ea_UpdateEvent);
+
+            //// Start algorithm (it will run on a background thread).
+            //_ea.StartContinue();
+
+            //Console.ReadLine();
+            #endregion Train
         }
 
+        private static void ea_UpdateEvent(object sender, EventArgs e)
+        {
+            NeatEvolutionAlgorithm<NeatGenome> _ea = (NeatEvolutionAlgorithm<NeatGenome>)sender;
+            Console.WriteLine(string.Format("gen={0:N0} bestFitness={1:N6}", _ea.CurrentGeneration, _ea.Statistics._maxFitness));
+
+            // Save the best genome to file
+            var doc = NeatGenomeXmlIO.SaveComplete(new List<NeatGenome>() { _ea.CurrentChampGenome }, false);
+            doc.Save(FILE);
+        }
+
+        #region Draw
         private static void Draw(Board board)
         {
             WriteLine(board.Squares, 0);
@@ -57,5 +116,6 @@ namespace NeatTest.ConsoleApp
                     return " ";
             }
         }
+        #endregion Draw
     }
 }

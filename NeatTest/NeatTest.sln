@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28721.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeatTest.Console", "NeatTest.Console\NeatTest.Console.csproj", "{362B1C8D-8F5C-4A41-B721-7F74B07FA3A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeatTest.ConsoleApp", "NeatTest.Console\NeatTest.ConsoleApp.csproj", "{362B1C8D-8F5C-4A41-B721-7F74B07FA3A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TitTacToeGame", "TitTacToeGame\TitTacToeGame.csproj", "{B7478175-FDD5-4097-A154-DC52C92B5D66}"
 EndProject
