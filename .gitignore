@@ -3,3 +3,9 @@
 ################################################################################
 
 /NeatTest/.vs/NeatTest/v15/Server/sqlite3
+/NeatTest/.vs/NeatTest/v16/Server/sqlite3
+/NeatTest/.vs/NeatTest
+/NeatTest/TitTacToeGame/obj
+/NeatTest/TitTacToeGame/bin/Debug/netstandard2.0
+/NeatTest/NeatTest.Console/obj
+/NeatTest/NeatTest.Console/bin/Debug/netcoreapp2.1
