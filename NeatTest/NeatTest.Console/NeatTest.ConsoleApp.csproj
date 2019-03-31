@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -18,16 +18,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="SharpNeatDomains">
-      <HintPath>..\..\..\..\..\Desktop\NeatTicTacToe\lib\SharpNeatDomains.dll</HintPath>
-      <Private>true</Private>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="expconfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SharpNeatDomains">
+      <HintPath>..\Libraries\SharpNeatDomains.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
